@@ -1,104 +1,299 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#075e54">
-  <meta name="description" content="Altersbestätigung und Zugangshinweise für eine private WhatsApp-Gruppe.">
-  <title>18+ Altersbestätigung | Privater Gruppenchat</title>
-  <style>
-    :root{--green:#25d366;--dark:#075e54;--deep:#042f2b;--ink:#12332f;--muted:#637875;--line:#dce9e6;--bg:#eef7f4;--white:#fff;--danger:#c0392b}
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 50% 0,#d6f8e6 0,transparent 42%),linear-gradient(145deg,#f7fffc,var(--bg));display:grid;place-items:center;padding:22px}
-    .card{width:min(100%,470px);background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.8);border-radius:28px;box-shadow:0 24px 70px rgba(7,94,84,.16);overflow:hidden}
-    .hero{padding:30px 28px 24px;text-align:center;background:linear-gradient(145deg,var(--dark),var(--deep));color:white;position:relative}
-    .hero:after{content:"";position:absolute;inset:auto -20% -55px;height:85px;background:white;border-radius:50% 50% 0 0/60% 60% 0 0}
-    .telegram-links{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 0 22px}.telegram-btn{min-height:43px;padding:9px 12px;border:1px solid rgba(255,255,255,.3);border-radius:13px;background:#229ed9;color:#fff;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.14);transition:transform .2s,background .2s,box-shadow .2s}.telegram-btn:hover{transform:translateY(-2px);background:#31a9e1;box-shadow:0 11px 24px rgba(0,0,0,.2)}.telegram-btn svg{width:21px;height:21px;flex:0 0 21px;fill:currentColor}
-    .logo{width:72px;height:72px;margin:0 auto 14px;border-radius:22px;background:var(--green);display:grid;place-items:center;font-weight:900;font-size:25px;box-shadow:0 10px 30px rgba(37,211,102,.28)}
-    .badge{display:inline-flex;gap:7px;align-items:center;padding:7px 11px;border-radius:99px;background:rgba(255,255,255,.12);font-size:12px;font-weight:750;letter-spacing:.06em;text-transform:uppercase}
-    h1{font-size:28px;line-height:1.12;margin:14px 0 10px} .hero p{margin:0 auto 20px;max-width:360px;color:#d7eeea;line-height:1.55;font-size:14px}
-    main{padding:34px 28px 28px}.steps{display:grid;gap:14px;margin-bottom:22px}.step{display:flex;gap:13px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:14px;background:#fbfefd}.num{flex:0 0 30px;height:30px;border-radius:10px;background:#ddf8e8;color:var(--dark);display:grid;place-items:center;font-weight:850}.step strong{display:block;margin:1px 0 4px;font-size:14px}.step span{display:block;color:var(--muted);font-size:13px;line-height:1.45}
-    label.check{display:flex;align-items:flex-start;gap:11px;padding:14px;border-radius:14px;background:#f2f8f6;font-size:13px;line-height:1.45;cursor:pointer}input[type=checkbox]{width:19px;height:19px;margin-top:1px;accent-color:var(--green)}
-    .buttons{display:grid;gap:10px;margin-top:15px}.btn{border:0;border-radius:14px;min-height:50px;padding:13px 18px;font-weight:800;font-size:15px;text-decoration:none;text-align:center;display:grid;place-items:center;cursor:pointer;transition:.2s transform,.2s opacity,.2s box-shadow}.btn:hover{transform:translateY(-1px)}.primary{color:#062f27;background:var(--green);box-shadow:0 9px 24px rgba(37,211,102,.24)}.secondary{color:var(--dark);background:white;border:1px solid #bcd7d1}.disabled{pointer-events:none;opacity:.42;box-shadow:none}
-    .notice{display:none;margin-top:13px;padding:11px 13px;border-left:3px solid var(--green);border-radius:8px;background:#effaf4;color:#355b53;font-size:12px;line-height:1.45}.notice.show{display:block}.error{display:none;color:var(--danger);font-size:12px;margin:9px 2px 0}.error.show{display:block}
-    .cam{position:relative;margin:-4px 0 18px;border-radius:19px;overflow:hidden;background:#092d29;aspect-ratio:16/10;box-shadow:0 12px 30px rgba(4,47,43,.16)}.cam video{width:100%;height:100%;display:block;object-fit:cover}.cam:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(3,24,21,.65))}.live{position:absolute;z-index:2;left:12px;top:12px;border-radius:99px;padding:6px 9px;background:rgba(15,34,31,.72);backdrop-filter:blur(7px);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em}.live i{display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(37,211,102,.16)}
-    .chat-widget{position:fixed;z-index:20;right:18px;bottom:18px;width:min(370px,calc(100vw - 24px));border:1px solid #d6e8e4;border-radius:20px;overflow:hidden;background:#eef7f4;box-shadow:0 20px 55px rgba(3,47,42,.27);transform:translateY(25px);opacity:0;animation:chatIn .55s ease 1.1s forwards}.chat-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--dark);color:white}.avatar{width:39px;height:39px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.8)}.chat-head strong{display:block;font-size:13px}.chat-head span{display:block;margin-top:2px;color:#c9e7e1;font-size:10px}.close{margin-left:auto;border:0;background:transparent;color:white;font-size:22px;cursor:pointer}.chat-body{padding:13px;background:linear-gradient(rgba(239,248,245,.94),rgba(239,248,245,.94));min-height:165px}.msg{width:fit-content;max-width:88%;padding:9px 11px;margin-bottom:8px;border-radius:5px 13px 13px 13px;background:white;box-shadow:0 2px 5px rgba(0,0,0,.08);font-size:13px;line-height:1.38;opacity:0;transform:translateY(7px)}.msg.one{animation:msgIn .35s ease 1.8s forwards}.msg.two{animation:msgIn .35s ease 2.7s forwards}.chat-cta{display:block;margin-top:11px;padding:12px;border-radius:12px;text-align:center;text-decoration:none;background:var(--green);color:#05362d;font-size:14px;font-weight:850;opacity:0;transform:translateY(7px);animation:msgIn .35s ease 3.5s forwards}.disclosure{display:block;margin-top:7px;text-align:center;color:#748985;font-size:9px;line-height:1.35}.chat-launcher{display:none;position:fixed;z-index:19;right:18px;bottom:18px;width:58px;height:58px;border:0;border-radius:50%;background:var(--green);color:#073f35;font-size:24px;box-shadow:0 12px 28px rgba(7,94,84,.3);cursor:pointer}@keyframes chatIn{to{transform:none;opacity:1}}@keyframes msgIn{to{transform:none;opacity:1}}
-    footer{text-align:center;color:#7b8f8b;font-size:11px;line-height:1.5;margin-top:19px}footer a{color:var(--dark)}
-    @media(max-width:420px){body{padding:12px 12px 250px}.card{border-radius:22px}.hero,main{padding-left:20px;padding-right:20px}.telegram-links{gap:7px;margin-bottom:20px}.telegram-btn{padding:9px 7px;font-size:12px}h1{font-size:24px}.chat-widget{right:12px;bottom:12px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp 18+ Zugang</title>
+<meta name="description" content="Altersbestätigung für den Zugang zu privaten WhatsApp-Gruppen.">
+<style>
+:root{
+  --wa:#25D366;
+  --wa-dark:#128C7E;
+  --gold:#d7b56d;
+  --bg:#06100d;
+  --text:#f7faf8;
+  --muted:#b8c4bf;
+  --card:rgba(7,20,16,.82);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:22px;
+  overflow-x:hidden;
+  color:var(--text);
+  background:#06100d;
+}
+
+/* FONDO: cambia esta URL si quieres usar otra imagen */
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    linear-gradient(145deg,rgba(2,10,8,.78),rgba(1,8,6,.94)),
+    url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85') center/cover no-repeat;
+}
+.background::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 18% 18%,rgba(37,211,102,.22),transparent 34%),
+    radial-gradient(circle at 82% 78%,rgba(215,181,109,.13),transparent 30%);
+}
+
+.shell{width:min(100%,440px)}
+.card{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(160deg,rgba(12,31,24,.92),rgba(4,14,11,.90));
+  border:1px solid rgba(215,181,109,.28);
+  border-radius:30px;
+  padding:30px 24px 24px;
+  box-shadow:0 30px 90px rgba(0,0,0,.56),0 0 45px rgba(37,211,102,.08);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.card::before{
+  content:"";
+  position:absolute;
+  width:180px;height:180px;
+  right:-95px;top:-90px;
+  border-radius:50%;
+  background:rgba(37,211,102,.11);
+  filter:blur(2px);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:22px;
+}
+.brand-left{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:850}
+.wa-mini{
+  width:38px;height:38px;border-radius:13px;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,#2be274,#1ab95b);
+  box-shadow:0 8px 22px rgba(37,211,102,.22);
+}
+.wa-mini svg{width:23px;height:23px;display:block}
+.badge{
+  border:1px solid rgba(215,181,109,.42);
+  color:#f4dfad;
+  background:rgba(215,181,109,.08);
+  padding:7px 11px;border-radius:999px;
+  font-size:12px;font-weight:900;
+}
+.hero-logo{
+  width:92px;height:92px;
+  margin:2px auto 18px;
+  border-radius:28px;
+  display:grid;place-items:center;
+  background:linear-gradient(145deg,#2be274,#18a951);
+  box-shadow:0 18px 40px rgba(37,211,102,.28),inset 0 0 0 1px rgba(255,255,255,.22);
+}
+.hero-logo svg{width:55px;height:55px;display:block}
+h1{
+  text-align:center;
+  font-size:30px;
+  line-height:1.08;
+  letter-spacing:-.8px;
+  margin-bottom:13px;
+}
+.lead{
+  text-align:center;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.58;
+  margin:0 auto 22px;
+}
+.info{
+  display:flex;align-items:flex-start;gap:11px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:17px;
+  padding:14px;
+  margin-bottom:20px;
+  color:#cbd6d1;
+  font-size:13px;
+  line-height:1.5;
+}
+.info strong{color:#fff}
+.actions{display:grid;gap:11px}
+.btn{
+  min-height:56px;
+  border:0;
+  border-radius:16px;
+  padding:0 18px;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  text-decoration:none;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+.btn:active{transform:scale(.985)}
+.btn-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#27dc6f,#12a94d);
+  box-shadow:0 14px 30px rgba(37,211,102,.27);
+}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-secondary{
+  color:#d7e0dc;
+  background:rgba(255,255,255,.075);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+/* Vibración suave del CTA */
+.vibrate{
+  animation:ctaShake 2.2s ease-in-out infinite;
+  transform-origin:center;
+}
+@keyframes ctaShake{
+  0%,76%,100%{transform:translateX(0) rotate(0)}
+  79%{transform:translateX(-2px) rotate(-.5deg)}
+  82%{transform:translateX(2px) rotate(.5deg)}
+  85%{transform:translateX(-2px) rotate(-.5deg)}
+  88%{transform:translateX(2px) rotate(.5deg)}
+  91%{transform:translateX(0) rotate(0)}
+}
+.status{display:none;margin-top:18px}
+.status-text{display:flex;justify-content:space-between;color:#b9c6c0;font-size:13px;margin-bottom:8px}
+.track{height:9px;border-radius:999px;background:rgba(255,255,255,.10);overflow:hidden}
+.fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#25D366,#7ef0a8);transition:width 1.35s ease}
+.final{display:none}
+.final-title{text-align:center;font-size:19px;font-weight:900;margin:20px 0 10px}
+.note{
+  margin-top:19px;
+  padding-top:17px;
+  border-top:1px solid rgba(255,255,255,.08);
+  color:#efd594;
+  font-weight:800;
+  text-align:center;
+  font-size:12.5px;
+  line-height:1.48;
+}
+.micro{text-align:center;color:#85928c;font-size:11px;margin-top:13px;line-height:1.4}
+@media (min-width:720px){
+  .shell{width:min(100%,520px)}
+  .card{padding:36px 34px 29px}
+  h1{font-size:35px}
+}
+
+.quick-links{display:flex;gap:9px;margin-top:18px;width:100%}
+.quick-link{flex:1;min-width:0;padding:11px 7px;border-radius:12px;text-decoration:none;font-size:11px;font-weight:800;line-height:1.25;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(255,255,255,.12);transition:.2s;box-shadow:0 5px 16px rgba(0,0,0,.15)}
+.quick-link:hover{transform:translateY(-2px)}
+.quick-link.telegram{background:#229ED9;color:#fff}
+.quick-link.whatsapp{background:#25D366;color:#fff}
+.quick-link svg{width:17px;height:17px;flex:none;fill:currentColor}
+@media(max-width:380px){.quick-links{gap:6px}.quick-link{font-size:10px;padding:10px 4px}}
+</style>
 </head>
 <body>
-  <section class="card" aria-labelledby="title">
-    <header class="hero">
-      <nav class="telegram-links" aria-label="Telegram-Links">
-        <!-- HIER DEINEN ECHTEN TELEGRAM-GRUPPENLINK EINTRAGEN -->
-        <a class="telegram-btn" href="https://t.me/gruppengeileDE" target="_blank" rel="noopener" aria-label="Telegram-Gruppe öffnen">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 2.6c-.3-.3-.8-.4-1.3-.2L2.4 9.5c-.7.3-1.1.8-1 1.4.1.5.5.9 1.1 1.1l4.6 1.4 1.8 5.7c.2.5.5.9 1 .9h.1c.4 0 .8-.2 1.1-.6l2.6-2.7 4.7 3.5c.4.3.8.4 1.2.2.4-.1.7-.5.8-1l2.3-15.6c.1-.5-.1-.9-.4-1.2zM9.8 14.1l-.6 3.1-1.1-3.6 8.5-5.4-6.8 5.9zm1 3.4.5-2.5 1.1.8-1.6 1.7zm8.1.5-7.4-5.5 8.8-7.6L18.9 18z"/></svg>
-          Telegram Gruppe
-        </a>
-        <!-- HIER DEINEN ECHTEN TELEGRAM-KANALLINK EINTRAGEN -->
-        <a class="telegram-btn" href="https://t.me/gruppendeutch" target="_blank" rel="noopener" aria-label="Telegram-Kanal öffnen">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 2.6c-.3-.3-.8-.4-1.3-.2L2.4 9.5c-.7.3-1.1.8-1 1.4.1.5.5.9 1.1 1.1l4.6 1.4 1.8 5.7c.2.5.5.9 1 .9h.1c.4 0 .8-.2 1.1-.6l2.6-2.7 4.7 3.5c.4.3.8.4 1.2.2.4-.1.7-.5.8-1l2.3-15.6c.1-.5-.1-.9-.4-1.2zM9.8 14.1l-.6 3.1-1.1-3.6 8.5-5.4-6.8 5.9zm1 3.4.5-2.5 1.1.8-1.6 1.7zm8.1.5-7.4-5.5 8.8-7.6L18.9 18z"/></svg>
-          Telegram Kanal
-        </a>
-      </nav>
-      <div class="logo" aria-hidden="true">18+</div>
-      <div class="badge">🔒 Privater Zugang</div>
-      <h1 id="title">Altersbestätigung</h1>
-      <p>Diese Gruppe ist ausschließlich für Erwachsene bestimmt. Bitte bestätige dein Alter und folge den Zugangsschritten.</p>
-    </header>
-    <main>
-      <div class="cam">
-        <!-- SUBE video.mp4 EN LA MISMA CARPETA QUE ESTE ARCHIVO HTML -->
-        <video autoplay muted loop playsinline preload="metadata" aria-label="Chat-Video-Vorschau">
-          <source src="video.mp4" type="video/mp4">
-          Dein Browser unterstützt dieses Video nicht.
-        </video>
-        <div class="live"><i></i>CHAT-VORSCHAU</div>
-      </div>
-      <div class="steps">
-        <div class="step"><div class="num">1</div><div><strong>Kostenlos registrieren</strong><span>Erstelle über die verlinkte Registrierungsseite dein Konto.</span></div></div>
-        <div class="step"><div class="num">2</div><div><strong>E-Mail bestätigen</strong><span>Öffne die Bestätigungsnachricht in deinem Postfach und klicke auf den enthaltenen Link.</span></div></div>
-        <div class="step"><div class="num">3</div><div><strong>Zur Gruppe wechseln</strong><span>Bestätige unten, dass du volljährig bist und die Registrierung abgeschlossen hast.</span></div></div>
-      </div>
+<div class="background"></div>
 
-      <label class="check"><input id="age" type="checkbox"><span>Ich bestätige, dass ich mindestens 18 Jahre alt bin.</span></label>
-      <label class="check" style="margin-top:9px"><input id="mail" type="checkbox"><span>Ich habe mich registriert und meine E-Mail-Adresse bestätigt.</span></label>
-      <div id="error" class="error" role="alert">Bitte bestätige zuerst beide Punkte.</div>
-
-      <div class="buttons">
-        <!-- HIER DEINEN ECHTEN REGISTRIERUNGSLINK EINTRAGEN -->
-        <a id="register" class="btn secondary" href="https://efrpmr8.lightheartedtrust.org/pvukutn" target="_blank" rel="noopener">Jetzt registrieren</a>
-        <!-- HIER DEINEN ECHTEN WHATSAPP-GRUPPENLINK EINTRAGEN -->
-        <a id="group" class="btn primary disabled" href="https://chat.whatsapp.com/sdfsfs" target="_blank" rel="noopener" aria-disabled="true">GRUPPEN VIP</a>
+<main class="shell">
+  <section class="card">
+    <div class="brand">
+      <div class="brand-left">
+        <div class="wa-mini" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><path fill="#fff" d="M16 4.3A11.3 11.3 0 0 0 6.25 21.3L4.6 27.35l6.2-1.62A11.31 11.31 0 1 0 16 4.3Zm0 20.55c-1.8 0-3.56-.49-5.1-1.42l-.37-.22-3.68.96.98-3.58-.24-.37A9.23 9.23 0 1 1 16 24.85Z"/><path fill="#fff" d="M21.08 18.6c-.28-.14-1.66-.82-1.92-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.1-.16.18-.33.2-.61.07-.28-.14-1.18-.44-2.25-1.39a8.46 8.46 0 0 1-1.56-1.94c-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.49-.07-.14-.64-1.54-.87-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-.99.97-.99 2.36s1.02 2.74 1.16 2.93c.14.19 2 3.06 4.85 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.12.55-.08 1.66-.68 1.89-1.34.23-.66.23-1.22.16-1.34-.07-.12-.26-.19-.54-.33Z"/></svg>
+        </div>
+        WhatsApp Gruppen
       </div>
-      <div id="notice" class="notice">“Hinweis: Der Gruppenlink wird ausschließlich für Nutzer freigeschaltet, die ihre Registrierung vollständig abgeschlossen haben. Ohne erfolgreiche Registrierung wird der Zugriff automatisch durch unseren Bot gesperrt.”.</div>
-      <footer>🔒 Ihre angegebenen Daten werden nicht an Dritte weitergegeben. Sie werden ausschließlich zur Überprüfung Ihres Alters verwendet</footer>
-    </main>
+      <div class="badge">18+ VERIFIED</div>
+    </div>
+
+    <div class="hero-logo" aria-label="WhatsApp">
+      <svg viewBox="0 0 32 32" fill="none"><path fill="#fff" d="M16 3.4A12.6 12.6 0 0 0 5.12 22.36L3.3 29.1l6.9-1.8A12.6 12.6 0 1 0 16 3.4Zm0 23c-2 0-3.97-.55-5.68-1.58l-.41-.25-4.1 1.07 1.1-3.98-.27-.42A10.29 10.29 0 1 1 16 26.4Z"/><path fill="#fff" d="M21.66 19.43c-.31-.16-1.85-.91-2.14-1.02-.29-.1-.5-.16-.71.16-.21.31-.82 1.02-1 1.22-.18.21-.37.23-.68.08-.31-.16-1.32-.49-2.5-1.55a9.41 9.41 0 0 1-1.75-2.16c-.18-.31-.02-.48.14-.63.14-.14.31-.37.47-.55.15-.18.2-.31.31-.52.1-.21.05-.39-.03-.55-.08-.15-.7-1.71-.97-2.35-.25-.61-.52-.53-.71-.54h-.61c-.21 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.63 0 1.55 1.13 3.05 1.29 3.26.15.21 2.23 3.4 5.4 4.77.75.33 1.34.52 1.8.67.76.24 1.45.21 2 .13.6-.09 1.84-.76 2.1-1.5.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.37Z"/></svg>
+    </div>
+
+    <h1>Privater Zugang zu WhatsApp-Gruppen</h1>
+    <p class="lead">🔞 Damit Ihre Anfrage akzeptiert werden kann, bestätigen Sie bitte, dass Sie mindestens 18 Jahre alt sind. ✅ Fahren Sie anschließend mit der kurzen Zugangskontrolle fort. 🔐</p>
+
+    <div class="info">
+      <span>🔒</span>
+      <div><strong>Sicherer Zugang:</strong> Nach der kostenlosen Registrierung bestätigen Sie Ihre E-Mail-Adresse, damit Ihr Konto vollständig aktiviert wird.</div>
+    </div>
+
+    <div id="initial" class="actions">
+      <button class="btn btn-primary vibrate" onclick="startCheck()">
+        ✓ Ja, ich bin 18 oder älter
+      </button>
+      <button class="btn btn-secondary" onclick="underAge()">Nein, ich bin minderjährig</button>
+    </div>
+
+    <div id="loading" class="status">
+      <div class="status-text"><span>Zugang wird vorbereitet…</span><span id="percent">0%</span></div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+
+    <div id="final" class="final">
+      <div class="final-title">Zugang verfügbar ✅</div>
+      <p class="lead" style="margin-bottom:18px">Schließen Sie jetzt die Registrierung ab, um mit dem nächsten Schritt fortzufahren.</p>
+      <div class="actions">
+        <!-- ENLACE PRINCIPAL: reemplaza TU_ENLACE_CPA_AQUI por tu URL -->
+        <a id="mainLink" class="btn btn-primary vibrate" href="https://efrpmr8.lightheartedtrust.org/pvukutn">
+          WhatsApp-Zugang freischalten
+        </a>
+        <button class="btn btn-secondary" onclick="location.reload()">Nein, danke</button>
+      </div>
+    </div>
+
+    <div class="note">Wichtig: Bestätigen Sie Ihre Registrierung über die E-Mail, die Sie bei der Anmeldung verwenden.</div>
+    <div class="micro">Nur für volljährige Nutzer ab 18 Jahren.</div>
+    <!-- ENLACES INFERIORES: reemplaza los href por tus URLs -->
+    <div class="quick-links">
+      <a class="quick-link telegram" href="https://t.me/+pxywREwn0ZYwMDhh" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M21.8 3.4 18.6 20c-.2 1.2-.9 1.5-1.9.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.1 13.8l-4.8-1.5c-1.1-.3-1.1-1.1.2-1.6L20.3 3.5c.9-.3 1.7.2 1.5-.1Z"/></svg>
+        Telegram Gruppe
+      </a>
+      <a class="quick-link telegram" href="https://t.me/LoveFrauenDE" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M21.8 3.4 18.6 20c-.2 1.2-.9 1.5-1.9.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.1 13.8l-4.8-1.5c-1.1-.3-1.1-1.1.2-1.6L20.3 3.5c.9-.3 1.7.2 1.5-.1Z"/></svg>
+        Telegram Kanal
+      </a>
+      <a class="quick-link whatsapp" href="https://kurzz.link/Whatsapp-GruppenDE" target="_blank" rel="noopener">
+        <span style="font-size:16px">●</span> WhatsApp Gruppen
+      </a>
+    </div>
+
   </section>
-  <aside id="chatWidget" class="chat-widget" aria-label="Automatische Chat-Einladung">
-    <div class="chat-head">
-      <!-- SUBE perfil-chat.jpg EN LA MISMA CARPETA QUE ESTE ARCHIVO HTML -->
-      <img class="avatar" src="perfil-chat.jpg" alt="Profilbild von Sophie">
-      <div><strong>Sophie</strong><span>Automatische Chat-Einladung</span></div>
-      <button id="closeChat" class="close" type="button" aria-label="Chat schließen">×</button>
-    </div>
-    <div class="chat-body">
-      <div class="msg one">Hallo, mein Schatz! 👋</div>
-      <div class="msg two">Möchtest du meinem Online-Chat beitreten? 💬</div>
-      <!-- REEMPLAZA ESTE ENLACE POR TU ENLACE CPA REAL -->
-      <a class="chat-cta" href="https://efrpmr8.lightheartedtrust.org/pvukutn" target="_blank" rel="nofollow sponsored noopener">CHAT ONLINE</a>
-      <small class="disclosure">🔞 Diese Seite ist nur für Erwachsene (18+). Die Registrierung ist 100 % kostenlos.</small>
-    </div>
-  </aside>
-  <button id="openChat" class="chat-launcher" type="button" aria-label="Chat öffnen">💬</button>
-  <script>
-    const age=document.querySelector('#age'),mail=document.querySelector('#mail'),group=document.querySelector('#group'),error=document.querySelector('#error'),notice=document.querySelector('#notice');
-    function update(){const ok=age.checked&&mail.checked;group.classList.toggle('disabled',!ok);group.setAttribute('aria-disabled',String(!ok));error.classList.remove('show');notice.classList.toggle('show',ok)}
-    age.addEventListener('change',update);mail.addEventListener('change',update);
-    group.addEventListener('click',e=>{if(!(age.checked&&mail.checked)){e.preventDefault();error.classList.add('show')}});
-    const chatWidget=document.querySelector('#chatWidget'),closeChat=document.querySelector('#closeChat'),openChat=document.querySelector('#openChat');
-    closeChat.addEventListener('click',()=>{chatWidget.style.display='none';openChat.style.display='block'});
-    openChat.addEventListener('click',()=>{chatWidget.style.display='block';openChat.style.display='none'});
-  </script>
+</main>
+
+<script>
+function startCheck(){
+  const initial=document.getElementById('initial');
+  const loading=document.getElementById('loading');
+  const fill=document.getElementById('fill');
+  const percent=document.getElementById('percent');
+  const finalBox=document.getElementById('final');
+
+  initial.style.display='none';
+  loading.style.display='block';
+  requestAnimationFrame(()=>{fill.style.width='100%';});
+
+  let p=0;
+  const timer=setInterval(()=>{
+    p+=10;
+    if(p>100)p=100;
+    percent.textContent=p+'%';
+    if(p===100)clearInterval(timer);
+  },120);
+
+  setTimeout(()=>{
+    loading.style.display='none';
+    finalBox.style.display='block';
+  },1450);
+}
+
+function underAge(){
+  alert('Der Zugang ist nur für Personen ab 18 Jahren verfügbar.');
+}
+</script>
 </body>
 </html>
